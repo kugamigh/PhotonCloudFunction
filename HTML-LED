@@ -1,0 +1,45 @@
+int checkLED(String led);
+int redPin = D4;
+int yellowPin = D3;
+int bluePin = D2;
+
+void setup() {
+    Particle.function("led", checkLED);
+    pinMode(redPin, OUTPUT);
+    pinMode(yellowPin, OUTPUT);
+    pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+}
+
+int checkLED(String led) {
+    int result = 0;
+    
+    if (led == "red") {
+        digitalWrite(redPin, HIGH);
+        digitalWrite(yellowPin, LOW);
+        digitalWrite(bluePin, LOW);
+        
+        result += 1;
+    }
+    else if (led == "yellow") {
+        digitalWrite(redPin, LOW);
+        digitalWrite(yellowPin, HIGH);
+        digitalWrite(bluePin, LOW);
+        
+        result += 2;
+    }
+    else if (led == "blue") {
+        digitalWrite(redPin, LOW);
+        digitalWrite(yellowPin, LOW);
+        digitalWrite(bluePin, HIGH);
+        
+        result += 4;
+    }
+    if (result > 0) {
+        return result;
+    }
+    
+    return -1;
+}
